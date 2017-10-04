@@ -275,8 +275,33 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	Release();
 	Init();
 
-	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	// Replace this with your codefloat angle = 360.00 / a_nSubdivisions;
+
+	//AddTri(vector3(0, 0, -a_fRadius), vector3(a_fRadius, a_fRadius, -a_fRadius), vector3(a_fRadius, 0, -a_fRadius));
+
+	float pi = 3.141529;
+	float angle = 360.00 / a_nSubdivisions;
+
+	//testing purposes
+	//std::cout << a_fRadius * sin(60 / 2 * pi) << ' ' << a_fRadius * cos(60 / 2 * pi) << -a_fRadius << '\n';
+	//std::cout << a_fRadius * sin(120 / 2 * pi) << ' ' << a_fRadius * cos(120 / 2 * pi) << -a_fRadius << '\n';
+	//std::cout << a_fRadius * sin(360 / 2 * pi) << ' ' << a_fRadius * cos(360 / 2 * pi) << -a_fRadius << '\n';
+
+	//std::cout << '\n' << '\n';
+
+	for (int i = 1; i <= a_nSubdivisions; i++)
+	{
+		//::cout << 0 << ' ' << 0 << ' ' << -a_fRadius << '\n' << a_fRadius * sin(i * angle / 2 * pi) << ' ' << a_fRadius * cos(i * angle / 2 * pi) << ' ' << -a_fRadius << '\n' << a_fRadius * sin((i - 1) * angle / 2 * pi) << ' ' << a_fRadius * cos((i - 1) * angle / 2 * pi) << ' ' << -a_fRadius << '\n' << '\n';
+
+		AddTri(vector3(0, 0, 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0));
+
+		AddTri(vector3(0, 0, a_fHeight), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0));
+
+		//AddQuad(vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fRadius), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fRadius), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0));
+
+		//AddTri(vector3(0, 0, a_fRadius), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fRadius), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fRadius));
+	}
+
 	// -------------------------------
 
 	// Adding information about color
@@ -300,7 +325,20 @@ void MyMesh::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisi
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+
+	float pi = 3.141529;
+	float angle = 360.00 / a_nSubdivisions;
+
+	for (int i = 1; i <= a_nSubdivisions; i++)
+	{
+
+		AddTri(vector3(0, 0, 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0));
+
+		AddQuad(vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fHeight));
+
+		AddTri(vector3(0, 0, a_fHeight), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fHeight));
+
+	}
 	// -------------------------------
 
 	// Adding information about color
@@ -330,7 +368,22 @@ void MyMesh::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float a_fH
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fOuterRadius * 2.0f, a_v3Color);
+
+	float pi = 3.141529;
+	float angle = 360.00 / a_nSubdivisions;
+
+	for (int i = 1; i <= a_nSubdivisions; i++)
+	{
+
+		AddQuad(vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), a_fHeight));
+
+		AddQuad(vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), a_fHeight));
+
+		AddQuad(vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), 0));
+
+		AddQuad(vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), 0));
+
+	}
 	// -------------------------------
 
 	// Adding information about color
