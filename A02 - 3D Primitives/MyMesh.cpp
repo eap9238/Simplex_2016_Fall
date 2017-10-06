@@ -279,27 +279,28 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 
 	//AddTri(vector3(0, 0, -a_fRadius), vector3(a_fRadius, a_fRadius, -a_fRadius), vector3(a_fRadius, 0, -a_fRadius));
 
-	float pi = 3.141529;
 	float angle = 360.00 / a_nSubdivisions;
 
 	//testing purposes
-	//std::cout << a_fRadius * sin(60 / 2 * pi) << ' ' << a_fRadius * cos(60 / 2 * pi) << -a_fRadius << '\n';
-	//std::cout << a_fRadius * sin(120 / 2 * pi) << ' ' << a_fRadius * cos(120 / 2 * pi) << -a_fRadius << '\n';
-	//std::cout << a_fRadius * sin(360 / 2 * pi) << ' ' << a_fRadius * cos(360 / 2 * pi) << -a_fRadius << '\n';
+	//std::cout << a_fRadius * sin(60 / toRad) << ' ' << a_fRadius * cos(60 / toRad) << -a_fRadius << '\n';
+	//std::cout << a_fRadius * sin(120 / toRad) << ' ' << a_fRadius * cos(120 / toRad) << -a_fRadius << '\n';
+	//std::cout << a_fRadius * sin(360 / toRad) << ' ' << a_fRadius * cos(360 / toRad) << -a_fRadius << '\n';
 
 	//std::cout << '\n' << '\n';
 
 	for (int i = 1; i <= a_nSubdivisions; i++)
 	{
-		//::cout << 0 << ' ' << 0 << ' ' << -a_fRadius << '\n' << a_fRadius * sin(i * angle / 2 * pi) << ' ' << a_fRadius * cos(i * angle / 2 * pi) << ' ' << -a_fRadius << '\n' << a_fRadius * sin((i - 1) * angle / 2 * pi) << ' ' << a_fRadius * cos((i - 1) * angle / 2 * pi) << ' ' << -a_fRadius << '\n' << '\n';
+		//std::cout << 0 << ' ' << 0 << ' ' << 0 << '\n' << a_fRadius * sin(i * angle / toRad) << ' ' << a_fRadius * cos(i * angle / toRad) << ' ' << 0 << '\n' << a_fRadius * sin((i - 1) * angle / toRad) << ' ' << a_fRadius * cos((i - 1) * angle / toRad) << ' ' << 0 << '\n' << '\n';
 
-		AddTri(vector3(0, 0, 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0));
+		//std::cout << sin(i * angle / toRad);
 
-		AddTri(vector3(0, 0, a_fHeight), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0));
+		AddTri(vector3(0, 0, 0), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), 0), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), 0));
 
-		//AddQuad(vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fRadius), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fRadius), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0));
+		AddTri(vector3(0, 0, a_fHeight), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), 0), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), 0));
 
-		//AddTri(vector3(0, 0, a_fRadius), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fRadius), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fRadius));
+		//AddQuad(vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), a_fRadius), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), a_fRadius), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), 0), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), 0));
+
+		//AddTri(vector3(0, 0, a_fRadius), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), a_fRadius), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), a_fRadius));
 	}
 
 	// -------------------------------
@@ -326,17 +327,18 @@ void MyMesh::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisi
 
 	// Replace this with your code
 
-	float pi = 3.141529;
 	float angle = 360.00 / a_nSubdivisions;
 
 	for (int i = 1; i <= a_nSubdivisions; i++)
 	{
+		//top
+		AddTri(vector3(0, 0, -a_fHeight / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), -a_fHeight / 2), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), -a_fHeight / 2));
 
-		AddTri(vector3(0, 0, 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0));
+		//sides
+		AddQuad(vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), a_fHeight / 2), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), -a_fHeight / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), a_fHeight / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), -a_fHeight / 2));
 
-		AddQuad(vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), 0), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fHeight));
-
-		AddTri(vector3(0, 0, a_fHeight), vector3(a_fRadius * sin((i - 1) * angle / 2 * pi), a_fRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fRadius * sin(i * angle / 2 * pi), a_fRadius * cos(i * angle / 2 * pi), a_fHeight));
+		//bottom
+		AddTri(vector3(0, 0, a_fHeight / 2), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), a_fHeight / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), a_fHeight / 2));
 
 	}
 	// -------------------------------
@@ -369,19 +371,21 @@ void MyMesh::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float a_fH
 
 	// Replace this with your code
 
-	float pi = 3.141529;
 	float angle = 360.00 / a_nSubdivisions;
 
 	for (int i = 1; i <= a_nSubdivisions; i++)
 	{
+		//top
+		AddQuad(vector3(a_fInnerRadius * sin((i - 1) * angle / toRad), a_fInnerRadius * cos((i - 1) * angle / toRad), a_fHeight / 2), vector3(a_fInnerRadius * sin(i * angle / toRad), a_fInnerRadius * cos(i * angle / toRad), a_fHeight / 2), vector3(a_fOuterRadius * sin((i - 1) * angle / toRad), a_fOuterRadius * cos((i - 1) * angle / toRad), a_fHeight / 2), vector3(a_fOuterRadius * sin(i * angle / toRad), a_fOuterRadius * cos(i * angle / toRad), a_fHeight / 2));
 
-		AddQuad(vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), a_fHeight));
+		//outer shell
+		AddQuad(vector3(a_fOuterRadius * sin((i - 1) * angle / toRad), a_fOuterRadius * cos((i - 1) * angle / toRad), a_fHeight / 2), vector3(a_fOuterRadius * sin(i * angle / toRad), a_fOuterRadius * cos(i * angle / toRad), a_fHeight / 2), vector3(a_fOuterRadius * sin((i - 1) * angle / toRad), a_fOuterRadius * cos((i - 1) * angle / toRad), -a_fHeight / 2), vector3(a_fOuterRadius * sin(i * angle / toRad), a_fOuterRadius * cos(i * angle / toRad), -a_fHeight / 2));
 
-		AddQuad(vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), a_fHeight));
+		//inner shell
+		AddQuad(vector3(a_fInnerRadius * sin((i - 1) * angle / toRad), a_fInnerRadius * cos((i - 1) * angle / toRad), -a_fHeight / 2), vector3(a_fInnerRadius * sin(i * angle / toRad), a_fInnerRadius * cos(i * angle / toRad), -a_fHeight / 2), vector3(a_fInnerRadius * sin((i - 1) * angle / toRad), a_fInnerRadius * cos((i - 1) * angle / toRad), a_fHeight / 2), vector3(a_fInnerRadius * sin(i * angle / toRad), a_fInnerRadius * cos(i * angle / toRad), a_fHeight / 2));
 
-		AddQuad(vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), a_fHeight), vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), 0));
-
-		AddQuad(vector3(a_fInnerRadius * sin((i - 1) * angle / 2 * pi), a_fInnerRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fInnerRadius * sin(i * angle / 2 * pi), a_fInnerRadius * cos(i * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin((i - 1) * angle / 2 * pi), a_fOuterRadius * cos((i - 1) * angle / 2 * pi), 0), vector3(a_fOuterRadius * sin(i * angle / 2 * pi), a_fOuterRadius * cos(i * angle / 2 * pi), 0));
+		//bottom
+		AddQuad(vector3(a_fOuterRadius * sin((i - 1) * angle / toRad), a_fOuterRadius * cos((i - 1) * angle / toRad), -a_fHeight / 2), vector3(a_fOuterRadius * sin(i * angle / toRad), a_fOuterRadius * cos(i * angle / toRad), -a_fHeight / 2), vector3(a_fInnerRadius * sin((i - 1) * angle / toRad), a_fInnerRadius * cos((i - 1) * angle / toRad), -a_fHeight / 2), vector3(a_fInnerRadius * sin(i * angle / toRad), a_fInnerRadius * cos(i * angle / toRad), -a_fHeight / 2));
 
 	}
 	// -------------------------------
@@ -440,7 +444,32 @@ void MyMesh::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a_v3Co
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+
+	float angle = 360.00 / a_nSubdivisions;
+
+	for (int i = 1; i <= a_nSubdivisions; i++)
+	{
+
+		//top
+		AddTri(vector3(0, 0, -a_fRadius / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), -a_fRadius / 2), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), -a_fRadius / 2));
+
+		for (int j = 1; j <= a_nSubdivisions; j++)
+		{
+			//sides
+			//AddQuad(vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), (a_fRadius / 2) - (a_fRadius * cos((j - 1) * angle))), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), (a_fRadius / 2) - (j * (a_fRadius / a_nSubdivisions))), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), (a_fRadius / 2) - ((j - 1) * (a_fRadius / a_nSubdivisions))), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), (a_fRadius / 2) - (j * (a_fRadius / a_nSubdivisions))));
+			
+			/* using this formula for placing shperes
+			x = r * cos(s) * sin(t)
+			y = r * sin(s) * sin(t)
+			z = r * cos(t)
+			*/
+		
+		}
+		
+		//bottom
+		AddTri(vector3(0, 0, a_fRadius / 2), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), a_fRadius / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), a_fRadius / 2));
+
+	}
 	// -------------------------------
 
 	// Adding information about color

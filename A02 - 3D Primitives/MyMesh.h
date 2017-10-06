@@ -23,6 +23,8 @@ using namespace Simplex;
 
 class MyMesh
 {
+	const float toRad = (180.00 / 3.1414926); //transitions degrees to radians
+
 	bool m_bBinded = false;		//Binded flag
 	uint m_uVertexCount = 0;	//Number of vertices in this MyMesh
 	GLuint m_VAO = 0;			//OpenGL Vertex Array Object
