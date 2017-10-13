@@ -447,13 +447,15 @@ void MyMesh::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a_v3Co
 
 	float angle = 360.00 / a_nSubdivisions;
 
+	float jAng = 180.00 / a_nSubdivisions;
+
 	for (int i = 1; i <= a_nSubdivisions; i++)
 	{
 
 		//top
-		AddTri(vector3(0, 0, -a_fRadius / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), -a_fRadius / 2), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), -a_fRadius / 2));
+		AddTri(vector3(0, 0, -a_fRadius), vector3(a_fRadius * cos(i * angle / toRad) * sin(jAng / toRad), a_fRadius * sin(i * angle / toRad) * sin(jAng / toRad), -a_fRadius * cos(jAng / toRad)), vector3(a_fRadius * cos((i - 1) * angle / toRad) * sin(jAng / toRad), a_fRadius * sin((i - 1) * angle / toRad) * sin(jAng / toRad), -a_fRadius * cos(jAng / toRad)));
 
-		for (int j = 1; j <= a_nSubdivisions; j++)
+		for (int j = 1; j < a_nSubdivisions - 1; j++)
 		{
 			//sides
 			//AddQuad(vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), (a_fRadius / 2) - (a_fRadius * cos((j - 1) * angle))), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), (a_fRadius / 2) - (j * (a_fRadius / a_nSubdivisions))), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), (a_fRadius / 2) - ((j - 1) * (a_fRadius / a_nSubdivisions))), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), (a_fRadius / 2) - (j * (a_fRadius / a_nSubdivisions))));
@@ -463,11 +465,13 @@ void MyMesh::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a_v3Co
 			y = r * sin(s) * sin(t)
 			z = r * cos(t)
 			*/
+			
+			AddQuad(vector3(a_fRadius * cos(i * angle / toRad) * sin(j * jAng / toRad), a_fRadius * sin(i * angle / toRad) * sin(j * jAng / toRad), a_fRadius * cos(j * jAng / toRad)), vector3(a_fRadius * cos((i - 1) * angle / toRad) * sin(j * jAng / toRad), a_fRadius * sin((i - 1) * angle / toRad) * sin(j * jAng / toRad), a_fRadius * cos(j * jAng / toRad)), vector3(a_fRadius * cos(i * angle / toRad) * sin((j + 1) * jAng / toRad), a_fRadius * sin(i * angle / toRad) * sin((j + 1) * jAng / toRad), a_fRadius * cos((j + 1) * jAng / toRad)), vector3(a_fRadius * cos((i - 1) * angle / toRad) * sin((j + 1) * jAng / toRad), a_fRadius * sin((i - 1) * angle / toRad) * sin((j + 1) * jAng / toRad), a_fRadius * cos((j + 1) * jAng / toRad)));
 		
 		}
 		
 		//bottom
-		AddTri(vector3(0, 0, a_fRadius / 2), vector3(a_fRadius * sin(i * angle / toRad), a_fRadius * cos(i * angle / toRad), a_fRadius / 2), vector3(a_fRadius * sin((i - 1) * angle / toRad), a_fRadius * cos((i - 1) * angle / toRad), a_fRadius / 2));
+		AddTri(vector3(0, 0, a_fRadius), vector3(a_fRadius * cos((i - 1) * angle / toRad) * sin(jAng / toRad), a_fRadius * sin((i - 1) * angle / toRad) * sin(jAng / toRad), a_fRadius * cos(jAng / toRad)), vector3(a_fRadius * cos(i * angle / toRad) * sin(jAng / toRad), a_fRadius * sin(i * angle / toRad) * sin(jAng / toRad), a_fRadius * cos(jAng / toRad)));
 
 	}
 	// -------------------------------
