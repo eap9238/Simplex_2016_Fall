@@ -33,6 +33,32 @@ void Application::Update(void)
 	float fTimer = m_pSystem->GetTimeSinceStart(uClock);
 	float fDeltaTime = m_pSystem->GetDeltaTime(uClock);
 
+	//translate vector orientation into a matrix
+	matrix4 m4OrientX = glm::rotate(IDENTITY_M4, m_v3Orientation.x, vector3(1.0f, 0.0f, 0.0f));
+	matrix4 m4OrientY = glm::rotate(IDENTITY_M4, m_v3Orientation.y, vector3(0.0f, 1.0f, 0.0f));
+	matrix4 m4OrientZ = glm::rotate(IDENTITY_M4, m_v3Orientation.z, vector3(0.0f, 0.0f, 1.0f));
+
+	matrix4 m4Orientation = m4OrientX * m4OrientY * m4OrientZ;
+
+	/*
+	//orientation of model
+	static quaternion qStart;
+	quaternion q1 = glm::angleAxis(fDeltaTime * 60.0f, vector3(0.0f, 1.0f, 0.0f));
+	qStart = qStart * q1;
+	*/
+
+	//transform matrix
+	m_m4Steve = glm::toMat4(m_qOrientation);
+	
+	//m_m4Steve = m4Orientation;
+
+	//Attach the model matrix that takes me from the world coordinate system
+	m_pModel->SetModelMatrix(m_m4Steve);
+
+	//Send the model to render list
+	m_pModel->AddToRenderList();
+
+	/*
 #pragma region SLERP
 	if (false)
 	{
@@ -60,12 +86,7 @@ void Application::Update(void)
 		m_m4Steve = glm::toMat4(m_qOrientation);
 	}
 #pragma endregion
-	
-	//Attach the model matrix that takes me from the world coordinate system
-	m_pModel->SetModelMatrix(m_m4Steve);
-
-	//Send the model to render list
-	m_pModel->AddToRenderList();
+*/
 }
 void Application::Display(void)
 {
