@@ -58,6 +58,7 @@ void Application::Display(void)
 	case 2:
 		m_pCamera->ResetCamera();
 		m_pCamera->SetPerspective(false);
+		//m_pCamera->SetNearFar(vector2(0, 100));
 		//m_pCamera->SetPositionTargetAndUp(vector3(10.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 1.0f));
 		//m_pCamera->SetHorizontalPlanes(vector2(-100, 100));
 		//m_pCamera->SetVerticalPlanes(vector2(-100, 100));
@@ -65,6 +66,7 @@ void Application::Display(void)
 	case 3:
 		m_pCamera->ResetCamera();
 		//m_pCamera->SetPerspective(false);
+		//m_pCamera->SetNearFar(vector2(0, 100));
 		m_pCamera->SetPositionTargetAndUp(vector3(50.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, -1.0f));
 		m_pCamera->SetHorizontalPlanes(vector2(-50, 50));
 		m_pCamera->SetVerticalPlanes(vector2(-50, 50));
@@ -72,6 +74,7 @@ void Application::Display(void)
 	case 4:
 		m_pCamera->ResetCamera();
 		//m_pCamera->SetPerspective(false);
+		//m_pCamera->SetNearFar(vector2(0, 100));
 		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, -15.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
 		//m_pCamera->SetHorizontalPlanes(vector2(-100, 100));
 		//m_pCamera->SetVerticalPlanes(vector2(-100, 100));
@@ -79,6 +82,7 @@ void Application::Display(void)
 	case 5:
 		m_pCamera->ResetCamera();
 		//m_pCamera->SetPerspective(false);
+		m_pCamera->SetNearFar(vector2(5.0f, 20.0f));
 		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, -15.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
 		//m_pCamera->SetHorizontalPlanes(vector2(-100, 100));
 		//m_pCamera->SetVerticalPlanes(vector2(-100, 100));
@@ -86,6 +90,7 @@ void Application::Display(void)
 	case 6:
 		m_pCamera->ResetCamera();
 		//m_pCamera->SetPerspective(false);
+		m_pCamera->SetNearFar(vector2(0.001f, 13.0f));
 		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, -15.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
 		//m_pCamera->SetHorizontalPlanes(vector2(-100, 100));
 		//m_pCamera->SetVerticalPlanes(vector2(-100, 100));
@@ -93,6 +98,7 @@ void Application::Display(void)
 	case 7:
 		m_pCamera->ResetCamera();
 		//m_pCamera->SetPerspective(false);
+		//m_pCamera->SetNearFar(vector2(0, 100));
 		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, 10.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, -1.0f, 0.0f));
 		//m_pCamera->SetHorizontalPlanes(vector2(-100, 100));
 		//m_pCamera->SetVerticalPlanes(vector2(-100, 100));
