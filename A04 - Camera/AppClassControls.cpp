@@ -314,16 +314,23 @@ void Application::ArcBall(float a_fSensitivity)
 	if (MouseY < CenterY)
 	{
 		DeltaMouse = static_cast<float>(CenterY - MouseY);
-		m_qArcBall = quaternion(vector3(glm::radians(-a_fSensitivity * DeltaMouse), 0.0f, 0.0f)) * m_qArcBall;
+		m_qArcBall = quaternion(vector3(glm::radians(a_fSensitivity * DeltaMouse), 0.0f, 0.0f)) * m_qArcBall;
 	}
 	else if (MouseY > CenterY)
 	{
 		DeltaMouse = static_cast<float>(MouseY - CenterY);
-		m_qArcBall = quaternion(vector3(glm::radians(a_fSensitivity * DeltaMouse), 0.0f, 0.0f)) * m_qArcBall;
+		m_qArcBall = quaternion(vector3(glm::radians(-a_fSensitivity * DeltaMouse), 0.0f, 0.0f)) * m_qArcBall;
 	}
 
 	SetCursorPos(CenterX, CenterY);//Position the mouse in the center
+								   
 								   //return qArcBall; // return the new quaternion orientation
+	m_pCamera->Turn(m_qArcBall);
+
+	m_qArcBall.x = 0;
+	m_qArcBall.y = 0;
+	m_qArcBall.z = 0;
+	m_qArcBall.w = 1;	
 }
 void Application::CameraRotation(float a_fSpeed)
 {
@@ -370,6 +377,10 @@ void Application::CameraRotation(float a_fSpeed)
 	}
 	//Change the Yaw and the Pitch of the camera
 	SetCursorPos(CenterX, CenterY);//Position the mouse in the center
+
+	//call rotary methods
+	m_pCamera->TurnY(fAngleY);
+	m_pCamera->TurnX(fAngleX);
 }
 //Keyboard
 void Application::ProcessKeyboard(void)
@@ -385,7 +396,88 @@ void Application::ProcessKeyboard(void)
 
 	if (fMultiplier)
 		fSpeed *= 5.0f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		m_pCamera->MoveForward(fSpeed);
+		//vector3 forward = m_pCamera->GetForward();
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		m_pCamera->MoveForward(-fSpeed);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		m_pCamera->MoveSideways(-fSpeed);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		m_pCamera->MoveSideways(fSpeed);
+	}
+
+	if (fMultiplier)
+		fSpeed *= 5.0f;
 #pragma endregion
+
+	/*
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		m_v3Orientation.x++;
+		quaternion q1 = glm::angleAxis(1.0f, vector3(1.0f, 0.0f, 0.0f));
+		m_pCamera->Turn(q1);
+		//example on how even a quaternion if generated though Euler will have Gimbal Lock
+		//vector3 v3Temp(glm::radians(m_v3Orientation.x), glm::radians(m_v3Orientation.y), glm::radians(m_v3Orientation.z));
+		//m_qOrientation = quaternion(vector3(v3Temp));
+
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+	{
+		m_pCamera->TurnX(1.0f);
+		m_v3Orientation.y++;
+		quaternion q1 = glm::angleAxis(1.0f, vector3(0.0f, 1.0f, 0.0f));
+		m_pCamera->Turn(q1);
+		//example on how even a quaternion if generated though Euler will have Gimbal Lock
+		//vector3 v3Temp(glm::radians(m_v3Orientation.x), glm::radians(m_v3Orientation.y), glm::radians(m_v3Orientation.z));
+		//m_qOrientation = quaternion(vector3(v3Temp));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+	{
+		m_pCamera->TurnX(1.0f);
+		m_v3Orientation.x++;
+		quaternion q1 = glm::angleAxis(1.0f, vector3(-1.0f, 0.0f, 0.0f));
+		m_pCamera->Turn(q1);
+		//example on how even a quaternion if generated though Euler will have Gimbal Lock
+		//vector3 v3Temp(glm::radians(m_v3Orientation.x), glm::radians(m_v3Orientation.y), glm::radians(m_v3Orientation.z));
+		//m_qOrientation = quaternion(vector3(v3Temp));
+
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+	{
+		m_v3Orientation.y++;
+		quaternion q1 = glm::angleAxis(1.0f, vector3(0.0f, -1.0f, 0.0f));
+		m_pCamera->Turn(q1);
+		//example on how even a quaternion if generated though Euler will have Gimbal Lock
+		//vector3 v3Temp(glm::radians(m_v3Orientation.x), glm::radians(m_v3Orientation.y), glm::radians(m_v3Orientation.z));
+		//m_qOrientation = quaternion(vector3(v3Temp));
+	}
+	*/ 
+
+	/*
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		m_v3Orientation.z++;
+		quaternion q1 = glm::angleAxis(1.0f, vector3(0.0f, 0.0f, 1.0f));
+		m_qOrientation = m_qOrientation * q1;
+		//example on how even a quaternion if generated though Euler will have Gimbal Lock
+		vector3 v3Temp(glm::radians(m_v3Orientation.x), glm::radians(m_v3Orientation.y), glm::radians(m_v3Orientation.z));
+		//m_qOrientation = quaternion(vector3(v3Temp));
+	*/
 }
 //Joystick
 void Application::ProcessJoystick(void)

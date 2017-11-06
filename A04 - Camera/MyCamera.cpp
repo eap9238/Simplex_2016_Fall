@@ -154,3 +154,85 @@ void Simplex::MyCamera::CalculateProjectionMatrix(void)
 										m_v2NearFar.x, m_v2NearFar.y); //near and far
 	}
 }
+
+vector3 Simplex::MyCamera::GetForward(void)
+{
+	return glm::normalize(m_v3Target - m_v3Position);
+}
+
+void Simplex::MyCamera::MoveForward(float val)
+{
+	m_v3Position += m_v3Forward * val;
+
+	if (val > 0)
+	{
+		m_v3Target = m_v3Position + m_v3Forward * val;
+	}
+	else
+	{
+		m_v3Target = m_v3Position - m_v3Forward * val;
+	}
+}
+
+void Simplex::MyCamera::MoveSideways(float val)
+{
+	m_v3Position += m_v3Rightward * val;
+
+	if (val > 0) 
+	{
+		m_v3Target = m_v3Position + m_v3Forward * val;
+	}
+	else
+	{
+		m_v3Target = m_v3Position - m_v3Forward * val;
+	}
+}
+
+void Simplex::MyCamera::TurnX(float turnX)
+{
+	//m_v3Rightward.x++;
+	quaternion q1 = glm::angleAxis(-turnX * 10, m_v3Rightward);
+	Turn(q1);
+
+	/*
+	glm::rotate(m_v3Forward, turnX, m_v3Rightward);
+	glm::rotate(m_v3Up, turnX, m_v3Rightward);
+	//glm::rotate(m_v3Rightward, turnX, m_vRightward);
+	m_v3Target = m_v3Position + m_v3Forward;
+	*/
+}
+
+void Simplex::MyCamera::TurnY(float turnY)
+{
+	//m_v3Up.y++;
+	quaternion q1 = glm::angleAxis(turnY, m_v3Up);
+	Turn(q1);
+
+	/*
+	glm::rotate(m_v3Forward, turnY, m_v3Up);
+	//glm::rotate(m_v3Up, turnY, m_v3Up);
+	glm::rotate(m_v3Rightward, turnY, m_v3Up);
+	m_v3Target = m_v3Position + m_v3Forward;
+	*/
+}
+
+void Simplex::MyCamera::Turn(quaternion turnQuat)
+{
+	//glm::normalize(turnQuat);
+
+	m_v3Forward = turnQuat * m_v3Forward;
+	m_v3Rightward = turnQuat * m_v3Rightward;
+	m_v3Up = turnQuat * m_v3Up;
+
+	m_v3Target = m_v3Position + m_v3Forward;
+}
+
+/*
+void Simplex::MyCamera::Turn(quaternion turnQuat)
+{
+	m_v3Up = turnQuat * m_v3Up;
+	m_v3Forward = turnQuat * m_v3Forward;
+	m_v3Target = m_v3Position + m_v3Forward;
+	m_v3Rightward = turnQuat * m_v3Rightward;
+}
+*/

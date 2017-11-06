@@ -48,6 +48,12 @@ void Application::Display(void)
 	//Clear the screen
 	ClearScreen();
 
+	//m_pMyMeshMngr->AddSkyboxToRenderList();
+
+	//m_pCamera->
+
+	//m_pCamera->SetPosition(vector3(0.0f, 0.0f, 30.0f));
+
 	//clear the render list
 	m_pMeshMngr->ClearRenderList();
 

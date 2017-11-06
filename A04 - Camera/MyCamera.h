@@ -16,6 +16,9 @@ class MyCamera
 	vector3 m_v3Target = vector3(0.0f, 0.0f, 0.0f); //What I'm looking at
 	vector3 m_v3Up = vector3(0.0f, 1.0f, 0.0f); //What is up
 
+	vector3 m_v3Forward = vector3(0.0f, 0.0f, -1.0f); //view vector
+	vector3 m_v3Rightward = vector3(1.0f, 0.0f, 0.0f); //what is to my right
+
 	bool m_bPerspective = true; //perspective view? False is Orthographic
 
 	float m_fFOV = 45.0f; //Field of View
@@ -211,6 +214,28 @@ public:
 	OUTPUT: ---
 	*/
 	void CalculateProjectionMatrix(void);
+
+	/*
+	USAGE: Calculate how the camera sees the world
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	vector3 GetForward(void);
+
+	//moves the camera front/back in 3D space
+	void MoveForward(float);
+
+	//moves the camera side/side in 3D space
+	void MoveSideways(float);
+
+	//rotates the camera about local x in 3D space
+	void TurnX(float);
+
+	//rotates the camera about local y in 3D space
+	void TurnY(float);
+
+	//rotates the camera about local x in 3D space
+	void Turn(quaternion);
 };
 
 } //namespace Simplex
