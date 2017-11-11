@@ -89,6 +89,64 @@ void MyRigidBody::SetModelMatrix(matrix4 a_m4ModelMatrix)
 	m_v3MaxG = m_v3MaxL;
 	//----------------------------------------
 
+	//calculate 4 corners of cube
+	vector3 v3Corner[8];
+	
+	//back square
+	v3Corner[0] = m_v3MinL;
+	v3Corner[1] = vector3(m_v3MaxL.x, m_v3MinL.y, m_v3MinL.z);
+	v3Corner[2] = vector3(m_v3MinL.x, m_v3MaxL.y, m_v3MinL.z);
+	v3Corner[3] = vector3(m_v3MaxL.x, m_v3MaxL.y, m_v3MinL.z);
+
+	//front square
+	v3Corner[4] = vector3(m_v3MinL.x, m_v3MinL.y, m_v3MaxL.z);
+	v3Corner[5] = vector3(m_v3MaxL.x, m_v3MinL.y, m_v3MaxL.z);
+	v3Corner[6] = vector3(m_v3MinL.x, m_v3MaxL.y, m_v3MaxL.z);
+	v3Corner[7] = m_v3MaxL;
+
+	//place in world space
+	for (uint uIndex = 0; uIndex < 8; ++uIndex)
+	{
+		v3Corner[uIndex] = vector3(m_m4ToWorld * vector4(v3Corner[uIndex], 1.0f));
+	}
+
+	//ID and set the min as the first corner
+	m_v3MaxG = m_v3MinG = v3Corner[0];
+
+	//get the new min and max for the global box
+	for (uint i = 1; i < 8; ++i)
+	{
+		//x
+		if (m_v3MaxG.x < v3Corner[i].x)
+		{
+			m_v3MaxG.x = v3Corner[i].x;
+		}
+		else if (m_v3MinG.x > v3Corner[i].x)
+		{
+			m_v3MinG.x = v3Corner[i].x;
+		}
+
+		//y
+		if (m_v3MaxG.y < v3Corner[i].y)
+		{
+			m_v3MaxG.y = v3Corner[i].y;
+		}
+		else if (m_v3MinG.y > v3Corner[i].y)
+		{
+			m_v3MinG.y = v3Corner[i].y;
+		}
+
+		//z
+		if (m_v3MaxG.z < v3Corner[i].z)
+		{
+			m_v3MaxG.z = v3Corner[i].z;
+		}
+		else if (m_v3MinG.z > v3Corner[i].z)
+		{
+			m_v3MinG.z = v3Corner[i].z;
+		}
+	}
+
 	//we calculate the distance between min and max vectors
 	m_v3ARBBSize = m_v3MaxG - m_v3MinG;
 }
