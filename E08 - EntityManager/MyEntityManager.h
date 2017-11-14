@@ -1,5 +1,5 @@
 /*----------------------------------------------
-Programmer: Alberto Bobadilla (labigm@gmail.com)
+Programmer: Elenaor Post (eap9238@g.rit.edu)
 Date: 2017/06
 ----------------------------------------------*/
 #ifndef __MYENTITYMANAGER_H_

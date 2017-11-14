@@ -287,6 +287,48 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 	(eSATResults::SAT_NONE has a value of 0)
 	*/
 
+	//scan creeper x
+	//find creeper x axis
+	vector3 creeperXAxis = vector3(m_v3MaxG.x, m_v3MinG.y, 0) - vector3(m_v3MinG.x, m_v3MinG.y, 0);
+	
+	//project creeper onto creeperx
+	vector3 creeperXCreeperMax = glm::dot(m_v3MaxG, creeperXAxis) / glm::abs(creeperXAxis);
+	vector3 creeperXCreeperMin = glm::dot(m_v3MinG, creeperXAxis) / glm::abs(creeperXAxis);
+
+	//project steve onto creeperx
+	vector3 creeperXSteveMax = glm::dot(a_pOther->m_v3MaxG, creeperXAxis) / glm::abs(creeperXAxis);
+	vector3 creeperXSteveMin = glm::dot(a_pOther->m_v3MinG, creeperXAxis) / glm::abs(creeperXAxis);
+
+	/*
+	//vec forme
+	std::cout << "creepmax " << creeperXCreeperMax.x << ', ' + creeperXCreeperMax.y << ', ' << creeperXCreeperMax.z << std::endl;
+	std::cout << "creepmin " << creeperXCreeperMin.x << ', ' + creeperXCreeperMin.y << ', ' << creeperXCreeperMin.z << std::endl;
+	std::cout << "stevemax " << creeperXSteveMax.x << ', ' + creeperXSteveMax.y << ', ' << creeperXSteveMax.z << std::endl;
+	std::cout << "stevemin " << creeperXSteveMin.x << ', ' + creeperXSteveMin.y << ', ' << creeperXSteveMin.z << std::endl;
+	std::cout << std::endl << std::endl << std::endl;
+	*/
+
+	//mag form
+	std::cout << "creepmax " << creeperXCreeperMax.length() << std::endl;
+	std::cout << "creepmin " << creeperXCreeperMin.length() << std::endl;
+	std::cout << "stevemax " << creeperXSteveMax.length() << std::endl;
+	std::cout << "stevemin " << creeperXSteveMin.length() << std::endl;
+	std::cout << std::endl << std::endl << std::endl;
+
+	//check for overlaps
+
+	//scan creeper y
+	//find creeper y axis
+	vector3 creeperYAxis = vector3(m_v3MinL.x, m_v3MaxL.y, 0) - vector3(m_v3MinL.x, m_v3MinL.y, 0);
+
+	//scan steve x
+	//find steve x axis
+	vector3 otherXAxis = vector3(a_pOther->m_v3MaxL.x, a_pOther->m_v3MinL.y, 0) - vector3(a_pOther->m_v3MinL.x, a_pOther->m_v3MinL.y, 0);
+
+	//scan steve y
+	//find steve y axis
+	vector3 otherYAxis = vector3(a_pOther->m_v3MinL.x, a_pOther->m_v3MaxL.y, 0) - vector3(a_pOther->m_v3MinL.x, a_pOther->m_v3MinL.y, 0);
+
 	//there is no axis test that separates this two objects
 	return eSATResults::SAT_NONE;
 }
