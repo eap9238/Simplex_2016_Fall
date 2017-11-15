@@ -20,6 +20,10 @@ class MyRigidBody
 	bool m_bVisibleARBB = true; //Visibility of axis (Re)aligned bounding box
 
 	float m_fRadius = 0.0f; //Radius
+	
+	vector3 u[3]; //local axes to global
+
+	//vector3 a_v3Corner[8]; //list of all of object's corners
 
 	vector3 m_v3ColorColliding = C_RED; //Color when colliding
 	vector3 m_v3ColorNotColliding = C_WHITE; //Color when not colliding
@@ -247,6 +251,11 @@ private:
 	OUTPUT: 0 for colliding, other = first axis that succeeds test
 	*/
 	uint SAT(MyRigidBody* const a_pOther);
+
+	//vector3 closestPtLineSegment(vector3 point, vector3 lineMax, vector3 lineMin);
+
+	// findMinMax(vector3* a_v3Corners, vector3 a_vAxis, float &a_fMin, float &a_fMax);
+
 };//class
 
 } //namespace Simplex
